@@ -2,95 +2,103 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Spawner))]
-public class SpawnerEditor : Editor
+namespace SagoMini
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(Spawner))]
+    public class SpawnerEditor : Editor
     {
-        Spawner spawner = (Spawner)target;
-
-        DrawDefaultInspector();
-
-        if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Delete && GUI.GetNameOfFocusedControl() == "Prefab")
+        public override void OnInspectorGUI()
         {
-            spawner.PrefabUniqueID = "";
-            Event.current.Use();
-            return; 
-        }
-        
-        GameObject matchingPrefab = FindPrefabByUniqueID(spawner.PrefabUniqueID);
-        GUI.SetNextControlName("Prefab");
-        GameObject tempDroppedPrefab = (GameObject)EditorGUILayout.ObjectField("Prefab", matchingPrefab, typeof(GameObject), false);
+            Spawner spawner = (Spawner)target;
 
-        if (matchingPrefab)
-        {
-            string assetPath = AssetDatabase.GetAssetPath(matchingPrefab);
-            AssetImporter importer = AssetImporter.GetAtPath(assetPath);
-            
-            if (string.IsNullOrEmpty(importer.assetBundleName))
+            DrawDefaultInspector();
+
+            if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Delete &&
+                GUI.GetNameOfFocusedControl() == "Prefab")
             {
-                EditorGUILayout.HelpBox("The linked prefab is not assigned to any asset bundles!", MessageType.Warning);
+                spawner.PrefabUniqueID = "";
+                Event.current.Use();
+                return;
             }
-            else
+
+            GameObject matchingPrefab = FindPrefabByUniqueID(spawner.PrefabUniqueID);
+            GUI.SetNextControlName("Prefab");
+            GameObject tempDroppedPrefab =
+                (GameObject)EditorGUILayout.ObjectField("Prefab", matchingPrefab, typeof(GameObject), false);
+
+            if (matchingPrefab)
             {
-                EditorGUILayout.Foldout(true, "Asset Bundle Info", true);
-                EditorGUI.indentLevel++; 
-                EditorGUILayout.LabelField("Asset Bundle:", importer.assetBundleName);
-                EditorGUI.indentLevel--;  
-            }
-        }
+                string assetPath = AssetDatabase.GetAssetPath(matchingPrefab);
+                AssetImporter importer = AssetImporter.GetAtPath(assetPath);
 
-
-        if (tempDroppedPrefab)
-        {
-            PrefabUniqueIdentifier identifier = tempDroppedPrefab.GetComponent<PrefabUniqueIdentifier>();
-
-            if (!identifier)
-            {
-   
-                EditorGUILayout.HelpBox("This prefab does not have a PrefabUniqueIdentifier!", MessageType.Warning);
-
-       
-                bool userWantsToAdd = EditorUtility.DisplayDialog("Missing PrefabUniqueIdentifier", 
-                    "Do you want to add a PrefabUniqueIdentifier to this prefab?", "OK", "Cancel");
-
-                if (userWantsToAdd)
+                if (string.IsNullOrEmpty(importer.assetBundleName))
                 {
-                    identifier = tempDroppedPrefab.AddComponent<PrefabUniqueIdentifier>();
-                    identifier.GenerateUniqueID();
-                    EditorUtility.SetDirty(tempDroppedPrefab); 
-                    EditorUtility.DisplayDialog("Missing PrefabUniqueIdentifier","Component has been added for you! \n\nPlease try again.", "Ok");
+                    EditorGUILayout.HelpBox("The linked prefab is not assigned to any asset bundles!",
+                        MessageType.Warning);
+                }
+                else
+                {
+                    EditorGUILayout.Foldout(true, "Asset Bundle Info", true);
+                    EditorGUI.indentLevel++;
+                    EditorGUILayout.LabelField("Asset Bundle:", importer.assetBundleName);
+                    EditorGUI.indentLevel--;
                 }
             }
-            else
+
+
+            if (tempDroppedPrefab)
             {
-                spawner.PrefabUniqueID = identifier.UniqueID;
+                PrefabUniqueIdentifier identifier = tempDroppedPrefab.GetComponent<PrefabUniqueIdentifier>();
+
+                if (!identifier)
+                {
+
+                    EditorGUILayout.HelpBox("This prefab does not have a PrefabUniqueIdentifier!", MessageType.Warning);
+
+
+                    bool userWantsToAdd = EditorUtility.DisplayDialog("Missing PrefabUniqueIdentifier",
+                        "Do you want to add a PrefabUniqueIdentifier to this prefab?", "OK", "Cancel");
+
+                    if (userWantsToAdd)
+                    {
+                        identifier = tempDroppedPrefab.AddComponent<PrefabUniqueIdentifier>();
+                        identifier.GenerateUniqueID();
+                        EditorUtility.SetDirty(tempDroppedPrefab);
+                        EditorUtility.DisplayDialog("Missing PrefabUniqueIdentifier",
+                            "Component has been added for you! \n\nPlease try again.", "Ok");
+                    }
+                }
+                else
+                {
+                    spawner.PrefabUniqueID = identifier.UniqueID;
+                }
+            }
+
+            if (GUILayout.Button("Locate Prefab in Project") && matchingPrefab)
+            {
+                Selection.activeObject = matchingPrefab;
+                EditorGUIUtility.PingObject(matchingPrefab);
             }
         }
 
-        if (GUILayout.Button("Locate Prefab in Project") && matchingPrefab)
+        private GameObject FindPrefabByUniqueID(string id)
         {
-            Selection.activeObject = matchingPrefab;
-            EditorGUIUtility.PingObject(matchingPrefab);
-        }
-    }
+            string[] allPrefabs = AssetDatabase.FindAssets("t:GameObject", null);
 
-    private GameObject FindPrefabByUniqueID(string id)
-    {
-        string[] allPrefabs = AssetDatabase.FindAssets("t:GameObject", null);
-
-        foreach (string prefab in allPrefabs)
-        {
-            string path = AssetDatabase.GUIDToAssetPath(prefab);
-            GameObject go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-            PrefabUniqueIdentifier identifier = go.GetComponent<PrefabUniqueIdentifier>();
-            if (identifier && identifier.UniqueID == id)
+            foreach (string prefab in allPrefabs)
             {
-                return go;
+                string path = AssetDatabase.GUIDToAssetPath(prefab);
+                GameObject go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+
+                PrefabUniqueIdentifier identifier = go.GetComponent<PrefabUniqueIdentifier>();
+                if (identifier && identifier.UniqueID == id)
+                {
+                    return go;
+                }
             }
+
+            return null;
         }
-        return null;
     }
-}
 #endif
+}

@@ -1,15 +1,19 @@
 using UnityEngine;
 
-public class SelfDestruct : MonoBehaviour
+namespace SagoMini
 {
-    public float destroyTime = 2;
-    void Start()
+    public class SelfDestruct : MonoBehaviour
     {
-        Invoke("DestroyThis", destroyTime);
-    }
+        public float destroyTime = 2;
 
-    void DestroyThis()
-    {
-        Destroy(this.gameObject);
+        private void Start()
+        {
+            Invoke("DestroyThis", destroyTime);
+        }
+
+        private void DestroyThis()
+        {
+            Destroy(gameObject);
+        }
     }
 }

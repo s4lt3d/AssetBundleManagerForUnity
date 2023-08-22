@@ -1,24 +1,25 @@
-using System;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+namespace SagoMini
 {
-    [HideInInspector, SerializeField]
-    protected string prefabUniqueID = "f6acd2e9-99ea-434a-9f69-dacaf873b8ce";
-    
-    protected GameObject prefabToSpawn;
-
-    public string PrefabUniqueID
+    public class Spawner : MonoBehaviour
     {
-        get => prefabUniqueID;
-        set => prefabUniqueID = value;
-    }
+        [HideInInspector] [SerializeField] protected string prefabUniqueID = "f6acd2e9-99ea-434a-9f69-dacaf873b8ce";
 
-    void Start()
-    {
-        prefabToSpawn = AssetBundleManager.Instance.GetPrefabFromAssetBundle(prefabUniqueID);
-        
-        if (prefabToSpawn)
-            Instantiate(prefabToSpawn, transform);
+        protected GameObject prefabToSpawn;
+
+        public string PrefabUniqueID
+        {
+            get => prefabUniqueID;
+            set => prefabUniqueID = value;
+        }
+
+        private void Start()
+        {
+            prefabToSpawn = AssetBundleManager.Instance.GetPrefabFromAssetBundle(prefabUniqueID);
+
+            if (prefabToSpawn)
+                Instantiate(prefabToSpawn, transform);
+        }
     }
 }

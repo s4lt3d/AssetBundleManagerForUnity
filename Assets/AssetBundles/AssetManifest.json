@@ -1,16 +1,18 @@
 {
-    "items": [
-        {
-            "uniqueid": "70660500-9074-4955-990b-a9fa617a7bc4",
-            "assetbundle": "circle",
-            "assetname": "NewCircle 1",
-            "guid": "8f8689aa9c8467049833d5386467d95b"
-        },
-        {
-            "uniqueid": "f6acd2e9-99ea-434a-9f69-dacaf873b8ce",
-            "assetbundle": "dot",
-            "assetname": "NewCircle",
-            "guid": "98d1619960953034ea136c7c14a7164d"
-        }
-    ]
+  "items": [
+    {
+      "uniqueid": "70660500-9074-4955-990b-a9fa617a7bc4",
+      "assetbundle": "circle",
+      "assetname": "NewCircle 1",
+      "guid": "8f8689aa9c8467049833d5386467d95b",
+      "path": "Assets/Prefabs/NewCircle 1.prefab"
+    },
+    {
+      "uniqueid": "f6acd2e9-99ea-434a-9f69-dacaf873b8ce",
+      "assetbundle": "dot",
+      "assetname": "NewCircle",
+      "guid": "98d1619960953034ea136c7c14a7164d",
+      "path": "Assets/Prefabs/SubPath/NewCircle.prefab"
+    }
+  ]
 }
