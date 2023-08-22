@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1562061179
+CRC: 671689419
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: eb5eb3979d6799054d0c64c20e521ea1
+    Hash: 8e06f3188b58d71b72f4fb31c95a8a56
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 72ee04c72244127d82f023a6eab2f595
+    Hash: 11b8d5fbe0f39849766efc93c061b260
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -29,5 +29,5 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Prefabs/Circle.prefab
+- Assets/Prefabs/NewCircle.prefab
 Dependencies: []

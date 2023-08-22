@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public string prefabUniqueID = "f6acd2e9-99ea-434a-9f69-dacaf873b8ce";
-
-    public GameObject prefabToSpawn;
-
-    public AssetBundle myLoadedAssetBundle;
+    [SerializeField]
+    protected string prefabUniqueID = "f6acd2e9-99ea-434a-9f69-dacaf873b8ce";
     
+    protected GameObject prefabToSpawn;
+    protected AssetBundle myLoadedAssetBundle;
+
+    public string PrefabUniqueID
+    {
+        get => prefabUniqueID;
+        set => prefabUniqueID = value;
+    }
+
     void Awake() {
     
         var path = Application.dataPath+ "/AssetBundles/circle";
@@ -19,10 +25,7 @@ public class Spawner : MonoBehaviour
             return;
         }
         
-        //var prefabToSpawn = myLoadedAssetBundle.LoadAsset<GameObject>("Circle");
-        //Instantiate(prefabToSpawn);
-        
-        prefabToSpawn = LoadPrefabFromAssetBundle(prefabUniqueID);
+        prefabToSpawn = LoadPrefabFromAssetBundle(PrefabUniqueID);
     }
 
     void Start()
@@ -35,8 +38,8 @@ public class Spawner : MonoBehaviour
     {
         foreach (var prefab in myLoadedAssetBundle.LoadAllAssets<GameObject>())
         {
-            var identifier = prefab.GetComponent<PrefabIdentifier>();
-            if(identifier != null && identifier.uniqueID == id)
+            var identifier = prefab.GetComponent<PrefabUniqueIdentifier>();
+            if(identifier != null && identifier.UniqueID == id)
             {
                 return prefab;
             }
