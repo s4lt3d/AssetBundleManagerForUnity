@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField]
+    [HideInInspector, SerializeField]
     protected string prefabUniqueID = "f6acd2e9-99ea-434a-9f69-dacaf873b8ce";
     
     protected GameObject prefabToSpawn;
@@ -13,14 +14,16 @@ public class Spawner : MonoBehaviour
         set => prefabUniqueID = value;
     }
 
-    void Awake()
-    {
-        prefabToSpawn = AssetBundleManager.Instance.GetPrefabFromAssetBundle(prefabUniqueID);
-    }
-
     void Start()
     {
+        prefabToSpawn = AssetBundleManager.Instance.GetPrefabFromAssetBundle(prefabUniqueID);
+        
         if (prefabToSpawn)
-            Instantiate(prefabToSpawn);
+            Instantiate(prefabToSpawn, transform);
+    }
+
+    private void OnDestroy()
+    {
+        AssetBundleManager.Instance.UnloadPrefab(prefabUniqueID);
     }
 }

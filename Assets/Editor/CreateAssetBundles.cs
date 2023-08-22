@@ -12,9 +12,12 @@ public class CreateAssetBundles
         GenerateAssetManifest(assetBundleDirectory);
     }
 
+    /// <summary>
+    /// Builds the asset bundles
+    /// </summary>
     private static string BuildAssetBundles()
     {
-        string assetBundleDirectory = "Assets/AssetBundles";
+        string assetBundleDirectory = Path.Combine(Application.dataPath, AssetBundleManager.AssetBundlesPath);
         if (!Directory.Exists(assetBundleDirectory))
         {
             Directory.CreateDirectory(assetBundleDirectory);
@@ -26,6 +29,10 @@ public class CreateAssetBundles
         return assetBundleDirectory;
     }
 
+    /// <summary>
+    /// Generates the manifest for the prefab id, bundle name pairs
+    /// </summary>
+    /// <param name="assetBundleDirectory"></param>
     private static void GenerateAssetManifest(string assetBundleDirectory)
     {
         List<SerializableKeyValuePair> prefabToAssetBundleMap = new List<SerializableKeyValuePair>();

@@ -4,7 +4,7 @@ using System.IO;
 
 public class AssetBundleManager : MonoBehaviour
 {
-    public string AssetBundlesPath = "AssetBundles";
+    public static string AssetBundlesPath = "AssetBundles";
     
     private static AssetBundleManager instance;
 
@@ -120,5 +120,11 @@ public class AssetBundleManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void UnloadPrefab(string id)
+    {
+        if (manifestDictionary.TryGetValue(id, out string path))
+            UnloadAssetBundle(path);
     }
 }
