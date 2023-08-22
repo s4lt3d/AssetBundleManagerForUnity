@@ -7,8 +7,6 @@ public class SpawnerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        bool showAssetBundleInfo = false;
-        
         Spawner spawner = (Spawner)target;
 
         // Draw the default inspector

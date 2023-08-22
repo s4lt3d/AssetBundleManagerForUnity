@@ -15,11 +15,7 @@ public class Spawner : MonoBehaviour
 
     void Awake()
     {
-        var path = Application.dataPath + "/AssetBundles/circle";
-        Debug.Log(path);
-        
-        AssetBundleManager.Instance.LoadAssetBundle(path);
-        prefabToSpawn = AssetBundleManager.Instance.GetPrefabFromAssetBundle(PrefabUniqueID);
+        prefabToSpawn = AssetBundleManager.Instance.GetPrefabFromAssetBundle(prefabUniqueID);
     }
 
     void Start()

@@ -1,9 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class AssetBundleManager : MonoBehaviour
 {
+    public string AssetBundlesPath = "AssetBundles";
+    
     private static AssetBundleManager instance;
-    private AssetBundle loadedAssetBundle;
+
+    private Dictionary<string, AssetBundle> loadedAssetBundles = new Dictionary<string, AssetBundle>();
+    private Dictionary<string, int> assetBundleReferenceCounter = new Dictionary<string, int>();
+
+    // Manifest Dictionary to map unique IDs to their asset bundle paths
+    private Dictionary<string, string> manifestDictionary = new Dictionary<string, string>();
 
     public static AssetBundleManager Instance
     {
@@ -38,35 +47,78 @@ public class AssetBundleManager : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-        
+
         instance = this;
         DontDestroyOnLoad(this.gameObject);
+        
+        LoadManifest();
+    }
+
+    private void LoadManifest()
+    {
+        string jsonPath = Path.Combine(Application.dataPath, "AssetBundles/AssetManifest.json");
+        if (File.Exists(jsonPath))
+        {
+            string jsonData = File.ReadAllText(jsonPath);
+            List<SerializableKeyValuePair> pairs = JsonUtility.FromJson<SerializableKeyValuePairList>(jsonData).items;
+            
+            foreach (var pair in pairs)
+            {
+                manifestDictionary[pair.key] = pair.value;
+            }
+        }
     }
 
     public void LoadAssetBundle(string path)
     {
-        if (loadedAssetBundle != null)
+        if (!loadedAssetBundles.ContainsKey(path))
         {
-            loadedAssetBundle.Unload(true);
+            AssetBundle assetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.dataPath, AssetBundlesPath, path));
+            if (assetBundle == null)
+            {
+                Debug.LogError("Failed to load AssetBundle from path: " + path);
+                return;
+            }
+            loadedAssetBundles[path] = assetBundle;
+            assetBundleReferenceCounter[path] = 1;
         }
-
-        loadedAssetBundle = AssetBundle.LoadFromFile(path);
-        if (loadedAssetBundle == null)
+        else
         {
-            Debug.Log("Failed to load AssetBundle!");
+            assetBundleReferenceCounter[path]++;
+        }
+    }
+
+    public void UnloadAssetBundle(string path)
+    {
+        if (loadedAssetBundles.ContainsKey(path))
+        {
+            assetBundleReferenceCounter[path]--;
+            if (assetBundleReferenceCounter[path] <= 0)
+            {
+                loadedAssetBundles[path].Unload(true);
+                loadedAssetBundles.Remove(path);
+                assetBundleReferenceCounter.Remove(path);
+            }
         }
     }
 
     public GameObject GetPrefabFromAssetBundle(string id)
     {
-        foreach (var prefab in loadedAssetBundle.LoadAllAssets<GameObject>())
+        if (manifestDictionary.TryGetValue(id, out string path))
         {
-            var identifier = prefab.GetComponent<PrefabUniqueIdentifier>();
-            if (identifier != null && identifier.UniqueID == id)
+            LoadAssetBundle(path);
+            AssetBundle loadedAssetBundle = loadedAssetBundles[path];
+
+            foreach (var prefab in loadedAssetBundle.LoadAllAssets<GameObject>())
             {
-                return prefab;
+                var identifier = prefab.GetComponent<PrefabUniqueIdentifier>();
+                if (identifier != null && identifier.UniqueID == id)
+                {
+                    return prefab;
+                }
             }
         }
+
         return null;
     }
 }
