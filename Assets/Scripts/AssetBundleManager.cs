@@ -60,11 +60,11 @@ public class AssetBundleManager : MonoBehaviour
         if (File.Exists(jsonPath))
         {
             string jsonData = File.ReadAllText(jsonPath);
-            List<SerializableKeyValuePair> pairs = JsonUtility.FromJson<SerializableKeyValuePairList>(jsonData).items;
+            List<AssetBundleLookup> pairs = JsonUtility.FromJson<AssetBundleLookupSerializableHelper>(jsonData).items;
             
             foreach (var pair in pairs)
             {
-                manifestDictionary[pair.key] = pair.value;
+                manifestDictionary[pair.uniqueid] = pair.assetbundle;
             }
         }
     }

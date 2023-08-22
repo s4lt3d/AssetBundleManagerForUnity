@@ -7,9 +7,14 @@ public class PrefabUniqueIdentifier : MonoBehaviour
     protected string uniqueID;
 
     public string UniqueID => uniqueID;
+    
+    private void OnDestroy()
+    {
+        if(AssetBundleManager.Instance)
+            AssetBundleManager.Instance.UnloadPrefab(uniqueID);
+    }
 
 #if UNITY_EDITOR
-
     void OnValidate()
     {
         GenerateUniqueID();

@@ -21,9 +21,4 @@ public class Spawner : MonoBehaviour
         if (prefabToSpawn)
             Instantiate(prefabToSpawn, transform);
     }
-
-    private void OnDestroy()
-    {
-        AssetBundleManager.Instance.UnloadPrefab(prefabUniqueID);
-    }
 }

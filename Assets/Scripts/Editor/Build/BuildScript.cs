@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class CreateAssetBundles
+public class BuildScript
 {
-    [MenuItem("Assets/Build AssetBundles")]
+    [MenuItem("Assets/* Build AssetBundles and Manifest")]
     static void BuildAllAssetBundles()
     {
         var assetBundleDirectory = BuildAssetBundles();
@@ -30,18 +30,19 @@ public class CreateAssetBundles
     }
 
     /// <summary>
-    /// Generates the manifest for the prefab id, bundle name pairs
+    /// Generates the manifest for the {prefab id, bundle name} pairs. This is used to lookup game objects by id
+    /// without having to know ahead of time how the objects are packed into asset bundles.
     /// </summary>
     /// <param name="assetBundleDirectory"></param>
     private static void GenerateAssetManifest(string assetBundleDirectory)
     {
-        List<SerializableKeyValuePair> prefabToAssetBundleMap = new List<SerializableKeyValuePair>();
+        List<AssetBundleLookup> prefabToAssetBundleMap = new List<AssetBundleLookup>();
 
-        // Get all prefabs in the project
-        string[] allPrefabs = AssetDatabase.FindAssets("t:GameObject");
-        foreach (string prefab in allPrefabs)
+        // Get all prefabs in the project with PrefabUniqueIdentifier
+        string[] allPrefabsGuids = AssetDatabase.FindAssets("t:GameObject");
+        foreach (string prefabGuid in allPrefabsGuids)
         {
-            string path = AssetDatabase.GUIDToAssetPath(prefab);
+            string path = AssetDatabase.GUIDToAssetPath(prefabGuid);
             GameObject go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
 
             if (!go)
@@ -63,16 +64,16 @@ public class CreateAssetBundles
                 }
                 else
                 {
-                    prefabToAssetBundleMap.Add(new SerializableKeyValuePair(identifier.UniqueID, assetBundleName));
+                    prefabToAssetBundleMap.Add(new AssetBundleLookup(identifier.UniqueID, assetBundleName, go.name, prefabGuid));
                     Debug.Log($"Added to map: {go.name} with AssetBundle: {assetBundleName}");
                 }
             }
         }
 
-        SerializableKeyValuePairList serializable = new SerializableKeyValuePairList { items = prefabToAssetBundleMap };
+        AssetBundleLookupSerializableHelper assetBundleLookupSerializable = new AssetBundleLookupSerializableHelper { items = prefabToAssetBundleMap };
 
         string jsonPath = assetBundleDirectory + "/AssetManifest.json";
-        string jsonContent = JsonUtility.ToJson(serializable, true);
+        string jsonContent = JsonUtility.ToJson(assetBundleLookupSerializable, true);
         File.WriteAllText(jsonPath, jsonContent);
 
         Debug.Log("Asset bundle building completed and index file generated.");
