@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2868896566
+CRC: 4260645058
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f435b9db7265c318bd192b19184470a2
+    Hash: 63fc3ce1033add65d669c0621286bd13
   TypeTreeHash:
     serializedVersion: 2
-    Hash: fcb657591289e0a31a6deab762a0a014
+    Hash: 9f27984a735b4721e51089dd7164a2f5
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -21,6 +21,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: 6182bc4c2ab7498dbbf086899563f942, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e1c7541f192776744aed61237a4c3c53, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 212
@@ -29,5 +31,5 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Prefabs/Tests/NewCircle 1.prefab
+- Assets/Prefabs/Logo.prefab
 Dependencies: []

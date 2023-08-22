@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace SagoMini
 {
-    public class Spawner : MonoBehaviour
+    public class AssetSpawner : MonoBehaviour
     {
-        [HideInInspector] [SerializeField] protected string prefabUniqueID = "f6acd2e9-99ea-434a-9f69-dacaf873b8ce";
+        [SerializeField] 
+        protected string prefabUniqueID = "";
 
         protected GameObject prefabToSpawn;
 
@@ -20,6 +21,12 @@ namespace SagoMini
 
             if (prefabToSpawn)
                 Instantiate(prefabToSpawn, transform);
+        }
+
+        private void OnDestroy()
+        {
+            if (AssetBundleManager.Instance)
+                AssetBundleManager.Instance.UnloadPrefab(prefabUniqueID);
         }
     }
 }

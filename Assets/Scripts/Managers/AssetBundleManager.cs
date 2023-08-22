@@ -59,7 +59,7 @@ namespace SagoMini
 
         private void LoadManifest()
         {
-            var jsonPath = Path.Combine(Application.dataPath, config.assetBundleDirectoryPath);
+            var jsonPath = Path.Combine(Application.dataPath, config.assetBundleDirectoryPath, config.manifestFileName);
             if (File.Exists(jsonPath))
             {
                 var jsonData = File.ReadAllText(jsonPath);
@@ -115,8 +115,13 @@ namespace SagoMini
                 foreach (var prefab in loadedAssetBundle.LoadAllAssets<GameObject>())
                 {
                     var identifier = prefab.GetComponent<PrefabUniqueIdentifier>();
-                    if (identifier != null && identifier.UniqueID == id) return prefab;
+                    if (identifier != null && identifier.UniqueID == id) 
+                        return prefab;
                 }
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to load prefab: {id}. Try rebuilding asset bundles.");
             }
 
             return null;

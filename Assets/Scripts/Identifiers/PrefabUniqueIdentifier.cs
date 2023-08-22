@@ -6,15 +6,11 @@ namespace SagoMini
     [DisallowMultipleComponent]
     public class PrefabUniqueIdentifier : MonoBehaviour
     {
-        [HideInInspector] [SerializeField] protected string uniqueID;
+        [HideInInspector] [SerializeField] 
+        protected string uniqueID;
 
         public string UniqueID => uniqueID;
 
-        private void OnDestroy()
-        {
-            if (AssetBundleManager.Instance)
-                AssetBundleManager.Instance.UnloadPrefab(uniqueID);
-        }
 
 #if UNITY_EDITOR
         private void OnValidate()

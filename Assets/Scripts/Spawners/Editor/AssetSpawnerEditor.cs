@@ -4,30 +4,41 @@ using UnityEditor;
 
 namespace SagoMini
 {
-    [CustomEditor(typeof(Spawner))]
-    public class SpawnerEditor : Editor
+    [CustomEditor(typeof(AssetSpawner))]
+    public class AssetSpawnerEditor : Editor
     {
+        private string cachedID = "";
+        private GameObject cahcedGameObject;
+        private bool shouldSerialize = false;
+
         public override void OnInspectorGUI()
         {
-            Spawner spawner = (Spawner)target;
+            AssetSpawner assetSpawner = (AssetSpawner)target;
 
             DrawDefaultInspector();
 
             if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Delete &&
                 GUI.GetNameOfFocusedControl() == "Prefab")
             {
-                spawner.PrefabUniqueID = "";
+                assetSpawner.PrefabUniqueID = "";
                 Event.current.Use();
                 return;
             }
 
-            GameObject matchingPrefab = FindPrefabByUniqueID(spawner.PrefabUniqueID);
+            GameObject matchingPrefab = FindPrefabByUniqueID(assetSpawner.PrefabUniqueID);
+
             GUI.SetNextControlName("Prefab");
             GameObject tempDroppedPrefab =
                 (GameObject)EditorGUILayout.ObjectField("Prefab", matchingPrefab, typeof(GameObject), false);
 
             if (matchingPrefab)
             {
+                if (GUILayout.Button("Locate in Project View") && matchingPrefab)
+                {
+                    Selection.activeObject = matchingPrefab;
+                    EditorGUIUtility.PingObject(matchingPrefab);
+                }
+
                 string assetPath = AssetDatabase.GetAssetPath(matchingPrefab);
                 AssetImporter importer = AssetImporter.GetAtPath(assetPath);
 
@@ -46,13 +57,12 @@ namespace SagoMini
             }
 
 
-            if (tempDroppedPrefab)
+            if (tempDroppedPrefab && IsPrefab(tempDroppedPrefab))
             {
                 PrefabUniqueIdentifier identifier = tempDroppedPrefab.GetComponent<PrefabUniqueIdentifier>();
 
                 if (!identifier)
                 {
-
                     EditorGUILayout.HelpBox("This prefab does not have a PrefabUniqueIdentifier!", MessageType.Warning);
 
 
@@ -70,19 +80,21 @@ namespace SagoMini
                 }
                 else
                 {
-                    spawner.PrefabUniqueID = identifier.UniqueID;
-                }
-            }
+                    assetSpawner.PrefabUniqueID = identifier.UniqueID;
 
-            if (GUILayout.Button("Locate Prefab in Project") && matchingPrefab)
-            {
-                Selection.activeObject = matchingPrefab;
-                EditorGUIUtility.PingObject(matchingPrefab);
+                    if (shouldSerialize)
+                    {
+                        EditorUtility.SetDirty(assetSpawner);
+                        shouldSerialize = false;
+                    }
+                }
             }
         }
 
-        private GameObject FindPrefabByUniqueID(string id)
+        protected GameObject FindPrefabByUniqueID(string id)
         {
+            if (id == cachedID)
+                return cahcedGameObject;
             string[] allPrefabs = AssetDatabase.FindAssets("t:GameObject", null);
 
             foreach (string prefab in allPrefabs)
@@ -93,11 +105,19 @@ namespace SagoMini
                 PrefabUniqueIdentifier identifier = go.GetComponent<PrefabUniqueIdentifier>();
                 if (identifier && identifier.UniqueID == id)
                 {
+                    cachedID = identifier.UniqueID;
+                    cahcedGameObject = go;
+                    shouldSerialize = true;
                     return go;
                 }
             }
 
             return null;
+        }
+
+        protected bool IsPrefab(GameObject go)
+        {
+            return !string.IsNullOrEmpty(AssetDatabase.GetAssetPath(go));
         }
     }
 #endif

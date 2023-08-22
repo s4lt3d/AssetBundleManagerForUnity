@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace SagoMini
 {
-    public class BuildScript
+    public class AssetBundleBuildScript
     {
-        public static BuildConfiguration config;
+        static BuildConfiguration config;
 
-        [MenuItem("Assets/* Build AssetBundles and Manifest")]
+        [MenuItem("Assets/* SagoMini * Build AssetBundles and Manifest")]
         static void BuildAllAssetBundles()
         {
             config = Resources.Load<BuildConfiguration>(Path.Combine("Settings", "LocalConfig"));
