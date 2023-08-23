@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetBundleDirectoryPath: AssetBundles
   manifestFileName: AssetManifest.json
+  ManagerPrefab: {fileID: 3367439269474541482, guid: 06fcda111f8a56242b68de9a0a5a2e29, type: 3}
