@@ -3,7 +3,7 @@
 This demo project demonstrates an asset loading system which has the following features.
 
 * Enables designers to drag/drop a prefab from the project view into the spawner component to instantiate a GameObject at runtime.
-* Designers can move, rename prefabs or modify asset bundles without impacting functionality.
+* Designers can move, rename prefabs, or modify asset bundles without impacting functionality.
 * Custom Inspector alerts designers of misconfigured prefabs and provides automatic fixes.
 * Incorporates a asset bundle manager to oversee the loading and unloading of asset bundles.
 * Offers future flexibilty to change the methods of asset bundle loading (local, remote, simulated)
@@ -20,14 +20,17 @@ The scene `SpawnTestScene` is provided to demonstrate usage of the asset managem
 1. Create Spawner
     - Place an `AssetSpawn` prefab in the scene. 
     - Located in Assets/Prefabs/Spawners
+
 2. Select Prefab to Spawn
     - Drag and Drop a prefab onto the AssetSpawn's prefab field within the inspector.
     - Alternatively, use the object picker in the AssetSpawn's Prefab field.
     ![Drag Drop Prefab](readme_assets/AssetSpawner.png)
+
 3. Missing Component Prompt. 
     - If the prefab lacks a unique id, a prompt will offer to add the component. Select OK. Then re-select the prefab. The prefab should now integrate the `PrefabUniqueIdentifier` component.
 
         ![Missing Prefab](readme_assets/MissingComponent.png)
+
 4. Select Asset Bundle
     - If the prefab isn't a part of any asset bundle, the AssetSpawner inspector will notify with an error in AssetSpawn inspector. Assign an asset bundle via the Prefab's Inspector at the bottom of it's inspector.
 
@@ -37,6 +40,7 @@ The scene `SpawnTestScene` is provided to demonstrate usage of the asset managem
     - Right-click in the Project View and select `Build Asset Bundles and Manifest` from the context menu.
 
         ![Build Asset Bundles](readme_assets/BuildMenu.png)
+
 6. Run Scene
     - The prefab should instantiate using the AssetSpawner's transform as a child of the AssetSpawner.
 
