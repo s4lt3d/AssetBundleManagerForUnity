@@ -5,21 +5,21 @@
             "assetbundle": "circle",
             "assetname": "Blue Circle",
             "guid": "8f8689aa9c8467049833d5386467d95b",
-            "path": "Assets/Prefabs/Blue Circle.prefab"
+            "path": "Assets/Prefabs/GameObjects/Blue Circle.prefab"
         },
         {
             "uniqueid": "6ce82681-9200-49ac-801b-b860771351e8",
             "assetbundle": "logos",
             "assetname": "Logo",
             "guid": "342dfe034c319bf41a1acf8666f94506",
-            "path": "Assets/Prefabs/Logo.prefab"
+            "path": "Assets/Prefabs/GameObjects/Logo.prefab"
         },
         {
             "uniqueid": "f6acd2e9-99ea-434a-9f69-dacaf873b8ce",
             "assetbundle": "dot",
             "assetname": "Red Dot",
             "guid": "98d1619960953034ea136c7c14a7164d",
-            "path": "Assets/Prefabs/Red Dot.prefab"
+            "path": "Assets/Prefabs/GameObjects/Red Dot.prefab"
         }
     ]
 }

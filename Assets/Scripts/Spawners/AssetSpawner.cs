@@ -6,7 +6,7 @@ namespace SagoMini
     /// Spawns prefab on start using asset manager.
     /// Uses PrefabUniqueIdentifier to load assets. 
     /// </summary>
-    public class AssetLoader : MonoBehaviour
+    public class AssetSpawner : MonoBehaviour
     {
         [HideInInspector, SerializeField] 
         protected string prefabUniqueID = "";

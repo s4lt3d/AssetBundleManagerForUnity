@@ -5,13 +5,13 @@ using UnityEditor;
 namespace SagoMini
 {
     /// <summary>
-    /// Inspector for AssetLoader.
+    /// Inspector for AssetSpawner.
     /// Allows designer to drag and drop prefab to spawn as if it were a normal prefab. No major change to unity flow. 
     /// Provides warnings of misconfiguration and prompts for automatic fix for misconfiguration.
     /// Displays information about asset bundle and warns for missing asset bundle configuration.  
     /// </summary>
-    [CustomEditor(typeof(AssetLoader), true)]
-    public class AssetLoaderEditor : Editor
+    [CustomEditor(typeof(AssetSpawner), true)]
+    public class AssetSpawnerEditor : Editor
     {
         private string cachedID = "";
         private GameObject cachedGameObject;
@@ -19,22 +19,22 @@ namespace SagoMini
 
         public override void OnInspectorGUI()
         {
-            AssetLoader assetLoader = (AssetLoader)target;
+            AssetSpawner assetSpawner = (AssetSpawner)target;
 
             DrawDefaultInspector();
 
             if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Delete &&
                 GUI.GetNameOfFocusedControl() == "Prefab")
             {
-                assetLoader.PrefabUniqueID = "";
+                assetSpawner.PrefabUniqueID = "";
                 Event.current.Use();
                 cachedID = "";
                 cachedGameObject = null;
-                EditorUtility.SetDirty(assetLoader);
+                EditorUtility.SetDirty(assetSpawner);
                 return;
             }
 
-            GameObject matchingPrefab = FindPrefabByUniqueID(assetLoader.PrefabUniqueID);
+            GameObject matchingPrefab = FindPrefabByUniqueID(assetSpawner.PrefabUniqueID);
 
             GUI.SetNextControlName("Prefab");
             GameObject tempDroppedPrefab =
@@ -87,11 +87,11 @@ namespace SagoMini
                 }
                 else
                 {
-                    assetLoader.PrefabUniqueID = identifier.UniqueID;
+                    assetSpawner.PrefabUniqueID = identifier.UniqueID;
 
                     if (shouldSerialize)
                     {
-                        EditorUtility.SetDirty(assetLoader);
+                        EditorUtility.SetDirty(assetSpawner);
                         shouldSerialize = false;
                     }
                 }

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3176614381
+CRC: 694174190
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2e7b75bb4b8f7ecf7c4ef25a4e37bf17
+    Hash: bc58cdbb12966d3359b5566bf9052e12
   TypeTreeHash:
     serializedVersion: 2
     Hash: fcb657591289e0a31a6deab762a0a014
@@ -29,5 +29,5 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Prefabs/Blue Circle.prefab
+- Assets/Prefabs/GameObjects/Blue Circle.prefab
 Dependencies: []

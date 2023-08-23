@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2137071967
+CRC: 2928918432
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 079ae2f1c635704fa92c3a365cee7ddf
+    Hash: 38c036b8724e7e43644f9b717409f798
   TypeTreeHash:
     serializedVersion: 2
     Hash: fcb657591289e0a31a6deab762a0a014
@@ -29,5 +29,5 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Prefabs/Red Dot.prefab
+- Assets/Prefabs/GameObjects/Red Dot.prefab
 Dependencies: []
