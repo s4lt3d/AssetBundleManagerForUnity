@@ -10,6 +10,8 @@ This demo project demonstrates an asset loading system which has the following f
 
 ## Usage
 
+- Unity 2022.3.5f1
+
 ### Demo Scene
 
 The scene `SpawnTestScene` is provided to demonstrate usage of the asset management system. 
