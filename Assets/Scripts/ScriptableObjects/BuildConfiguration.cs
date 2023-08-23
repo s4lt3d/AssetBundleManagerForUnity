@@ -10,7 +10,7 @@ namespace SagoMini
 
         [Tooltip("Name of the manifest file to be generated.")]
         public string manifestFileName = "AssetManifest.json";
-        
+
         [Tooltip("Asset Manager to load. (Local, Remote, Simulated, etc)")]
         public AssetBundleManager ManagerPrefab;
     }

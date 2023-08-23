@@ -23,14 +23,24 @@ The scene `SpawnTestScene` is provided to demonstrate usage of the asset managem
 2. Select Prefab to Spawn
     - Drag and Drop a prefab onto the AssetSpawn's prefab field within the inspector.
     - Alternatively, use the object picker in the AssetSpawn's Prefab field.
+    ![Drag Drop Prefab](readme_assets/AssetSpawner.png)
 3. Missing Component Prompt. 
     - If the prefab lacks a unique id, a prompt will offer to add the component. Select OK. Then re-select the prefab. The prefab should now integrate the `PrefabUniqueIdentifier` component.
+
+        ![Missing Prefab](readme_assets/MissingComponent.png)
 4. Select Asset Bundle
     - If the prefab isn't a part of any asset bundle, the AssetSpawner inspector will notify with an error in AssetSpawn inspector. Assign an asset bundle via the Prefab's Inspector at the bottom of it's inspector.
+
+        ![Missing Bundle](readme_assets/MissingBundle.png)
+
 5. Build Asset Bundles 
     - Right-click in the Project View and select `Build Asset Bundles and Manifest` from the context menu.
+
+        ![Build Asset Bundles](readme_assets/BuildMenu.png)
 6. Run Scene
     - The prefab should instantiate using the AssetSpawner's transform as a child of the AssetSpawner.
+
+        ![Game](readme_assets/game.gif)
 
 #### Build Setup (Already done for you)
 

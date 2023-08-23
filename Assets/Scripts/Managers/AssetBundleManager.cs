@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -14,17 +13,17 @@ namespace SagoMini
     public abstract class AssetBundleManager : MonoBehaviour
     {
         protected static AssetBundleManager instance;
-        protected static bool destroyed = false;
-        
+        protected static bool destroyed;
+
         protected static BuildConfiguration config;
-        protected string assetBundlePath = "";
-        
-        
+
+
         // Map unique IDs to the asset's asset bundle to load. 
         protected readonly Dictionary<string, string> assetBundleManifest = new();
         protected readonly Dictionary<string, int> assetBundleReferenceCounter = new();
         protected readonly Dictionary<string, AssetBundle> loadedAssetBundles = new();
-        
+        protected string assetBundlePath = "";
+
         public static AssetBundleManager Instance
         {
             get
@@ -38,20 +37,12 @@ namespace SagoMini
                         Debug.LogError("No valid AssetBundleManagerConfig found!");
                         return null;
                     }
-                    
+
                     instance = Instantiate(config.ManagerPrefab);
                 }
-                
+
                 return instance;
             }
-        }
-
-        static BuildConfiguration LoadConfig()
-        {
-            if(config == null)
-                return Resources.Load<BuildConfiguration>(Path.Combine("Settings", "LocalConfig"));
-            
-            return config;
         }
 
         protected void Awake()
@@ -73,6 +64,14 @@ namespace SagoMini
         protected void OnApplicationQuit()
         {
             destroyed = true;
+        }
+
+        private static BuildConfiguration LoadConfig()
+        {
+            if (config == null)
+                return Resources.Load<BuildConfiguration>(Path.Combine("Settings", "LocalConfig"));
+
+            return config;
         }
 
         protected abstract void LoadManifest();

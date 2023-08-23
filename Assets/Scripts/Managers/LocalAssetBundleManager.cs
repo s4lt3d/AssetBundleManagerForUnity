@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.IO;
+﻿using System.IO;
+using UnityEngine;
 
 namespace SagoMini
 {
@@ -72,7 +72,7 @@ namespace SagoMini
                 foreach (var prefab in loadedAssetBundle.LoadAllAssets<GameObject>())
                 {
                     var identifier = prefab.GetComponent<PrefabUniqueIdentifier>();
-                    if (identifier != null && identifier.UniqueID == id) 
+                    if (identifier != null && identifier.UniqueID == id)
                         return prefab;
                 }
             }

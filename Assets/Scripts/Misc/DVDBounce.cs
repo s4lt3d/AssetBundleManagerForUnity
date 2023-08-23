@@ -1,15 +1,15 @@
 using UnityEngine;
 
 /// <summary>
-/// Bounces a sprite like an old fashioned dvd screen saver.  
+///     Bounces a sprite like an old fashioned dvd screen saver.
 /// </summary>
 public class DVDBounce : MonoBehaviour
 {
     public float speed = 1f;
-    private Vector2 velocity = new Vector2(1f, 1f);  
-    private Vector2 screenBounds;
-    private float objectWidth;
     private float objectHeight;
+    private float objectWidth;
+    private Vector2 screenBounds;
+    private Vector2 velocity = new(1f, 1f);
 
     private void Start()
     {

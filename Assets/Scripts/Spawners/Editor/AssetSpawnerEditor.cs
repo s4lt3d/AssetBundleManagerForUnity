@@ -1,6 +1,6 @@
 ﻿#if UNITY_EDITOR
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace SagoMini
 {
@@ -13,9 +13,9 @@ namespace SagoMini
     [CustomEditor(typeof(AssetSpawner), true)]
     public class AssetSpawnerEditor : Editor
     {
-        private string cachedID = "";
         private GameObject cachedGameObject;
-        private bool shouldSerialize = false;
+        private string cachedID = "";
+        private bool shouldSerialize;
 
         public override void OnInspectorGUI()
         {
