@@ -11,7 +11,7 @@ namespace SagoMini
 
         private readonly Dictionary<string, AssetBundle> loadedAssetBundles = new();
 
-        // Manifest Dictionary to map unique IDs to their asset bundle paths
+        // Map unique IDs to the asset's asset bundle to load. 
         private readonly Dictionary<string, string> manifestDictionary = new();
 
         private string assetBundlePath = "";

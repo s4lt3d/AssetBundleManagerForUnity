@@ -4,7 +4,7 @@ namespace SagoMini
 {
     public class AssetSpawner : MonoBehaviour
     {
-        [SerializeField] 
+        [HideInInspector, SerializeField] 
         protected string prefabUniqueID = "";
 
         protected GameObject prefabToSpawn;

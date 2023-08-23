@@ -8,7 +8,7 @@ namespace SagoMini
     public class AssetSpawnerEditor : Editor
     {
         private string cachedID = "";
-        private GameObject cahcedGameObject;
+        private GameObject cachedGameObject;
         private bool shouldSerialize = false;
 
         public override void OnInspectorGUI()
@@ -22,6 +22,9 @@ namespace SagoMini
             {
                 assetSpawner.PrefabUniqueID = "";
                 Event.current.Use();
+                cachedID = "";
+                cachedGameObject = null;
+                EditorUtility.SetDirty(assetSpawner);
                 return;
             }
 
@@ -33,7 +36,7 @@ namespace SagoMini
 
             if (matchingPrefab)
             {
-                if (GUILayout.Button("Locate in Project View") && matchingPrefab)
+                if (GUILayout.Button("Locate in Project View"))
                 {
                     Selection.activeObject = matchingPrefab;
                     EditorGUIUtility.PingObject(matchingPrefab);
@@ -65,7 +68,6 @@ namespace SagoMini
                 {
                     EditorGUILayout.HelpBox("This prefab does not have a PrefabUniqueIdentifier!", MessageType.Warning);
 
-
                     bool userWantsToAdd = EditorUtility.DisplayDialog("Missing PrefabUniqueIdentifier",
                         "Do you want to add a PrefabUniqueIdentifier to this prefab?", "OK", "Cancel");
 
@@ -94,7 +96,7 @@ namespace SagoMini
         protected GameObject FindPrefabByUniqueID(string id)
         {
             if (id == cachedID)
-                return cahcedGameObject;
+                return cachedGameObject;
             string[] allPrefabs = AssetDatabase.FindAssets("t:GameObject", null);
 
             foreach (string prefab in allPrefabs)
@@ -106,7 +108,7 @@ namespace SagoMini
                 if (identifier && identifier.UniqueID == id)
                 {
                     cachedID = identifier.UniqueID;
-                    cahcedGameObject = go;
+                    cachedGameObject = go;
                     shouldSerialize = true;
                     return go;
                 }
