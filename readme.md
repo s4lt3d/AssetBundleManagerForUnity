@@ -2,36 +2,42 @@
 
 This demo project demonstrates an asset loading system which has the following features.
 
-* Allows designer to drag / drop a prefab from the project view into the spawner component to instantiate a GameObject at runtime. 
-* Design may move or rename prefab or change asset bundles without breaking functionality. 
-* Custom Inspector warns designer of misconfigured prefab and offers automatic fix.
-* Uses a newly built asset bundle manager to load and unload asset bundles. 
-* Offers future flexibilty to change how asset bundles are loaded (local, remote, simulated)
+* Enables designers to drag/drop a prefab from the project view into the spawner component to instantiate a GameObject at runtime.
+* Designers can move, rename prefabs or modify asset bundles without impacting functionality.
+* Custom Inspector alerts designers of misconfigured prefabs and provides automatic fixes.
+* Incorporates a asset bundle manager to oversee the loading and unloading of asset bundles.
+* Offers future flexibilty to change the methods of asset bundle loading (local, remote, simulated)
 
 ## Usage
+
+### Demo Scene
+
+The scene `SpawnTestScene` is provided to demonstrate usage of the asset management system. 
+
+### Setup for New Objects
 
 #### Assigning Prefab to Spawn
 1. Create Spawner
     - Place an `AssetSpawn` prefab in the scene. 
     - Located in Assets/Prefabs/Spawners
 2. Select Prefab to Spawn
-    - Drag and Drop a prefab onto the AssetSpawn's prefab field in the inspector. 
-    - Alternative: Use the object picker on the AssetSpawn's Prefab field in the inspector.
+    - Drag and Drop a prefab onto the AssetSpawn's prefab field within the inspector.
+    - Alternatively, use the object picker in the AssetSpawn's Prefab field.
 3. Missing Component Prompt. 
-    - If the prefab is missing a unique id, a prompt will ask to add the component automatically. Choose OK. Then re-select the prefab. The prefab should now have the component `PrefabUniqueIdentifier`.
-4. Choose Asset Bundle
-    - If the prefab is not included in any asset bundle the AssetSpawner inspector will notify with an error. Choose an asset bundle using the Prefab's Inspector and choose the Asset Bundle from the bottom menu. 
+    - If the prefab lacks a unique id, a prompt will offer to add the component. Select OK. Then re-select the prefab. The prefab should now integrate the `PrefabUniqueIdentifier` component.
+4. Select Asset Bundle
+    - If the prefab isn't a part of any asset bundle, the AssetSpawner inspector will notify with an error in AssetSpawn inspector. Assign an asset bundle via the Prefab's Inspector at the bottom of it's inspector.
 5. Build Asset Bundles 
-    - Right click in the Project View and choose Build Asset Bundles and Manifest from the context menu. 
+    - Right-click in the Project View and select `Build Asset Bundles and Manifest` from the context menu.
 6. Run Scene
-    - Prefab should instantiate using the AssetSpawner's transform. 
+    - The prefab should instantiate using the AssetSpawner's transform as a child of the AssetSpawner.
 
 #### Build Setup (Already done for you)
 
-- A configuration file for builds and path locations is located in Assets/Resources/Settings/LocalConfig.asset
-- Project should build and run on Windows
+- The configuration file detailing builds and path definitions is located in Assets/Resources/Settings/LocalConfig.asset
+- Project can be built and run on Windows
 
-#### Testing Asset Bundles Changes in a Build
+#### Testing Asset Bundles Changes in a Build (optional)
 
 - Feel free to change prefabs and update asset bundles locally. (Sorry, windows only for this demo)
 - Asset Bundles can be rebuilt and copy into the built project folder. 
@@ -53,11 +59,16 @@ The LocalAssetBundleManager class loads Asset Bundles on demand using a manifest
 
 The project requires that any change to prefabs to be spawned needs an asset bundle build for the changes to show in the scene. A work around for this is to simulate asset bundles with a different asset bundle loader. This workflow would work well for artists and designers who are working within the project without needing to rebuild at every step. Though this is outside the scope of this demo. 
 
-
 ## Conclusion
 
-This system abstracts away the complexities of working directly with asset bundles and is designed to work with the familiar Unity workflow making using asset bundles easy and streamlined. 
+This system abstracts away the complexities of working directly with asset bundles and the need to worry about the underlying structure of the project. It is designed to work with the familiar Unity workflow making using asset bundles easy and streamlined. This system could be expanded to provide additional functionality such as loading from remote bundles or simulating asset bundles in the editor. 
 
+#### Additional Features for Future Work
+- Asset Bundle Browser
+    - Allow engineers or designers to easily see and configure which objects are bundled together. Currently each prefab needs to be viewed and configured seperately. 
+- Simulate Asset Bundles
+    - Instead of building and loading each time, the system should allow the use of in project prefabs to be loaded without needing to load asset bundles. This would save time building and testing when the project size grows.
+    
 ## Class Descriptions
 
 ### PrefabUniqueIdentifier
