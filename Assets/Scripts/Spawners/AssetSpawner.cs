@@ -17,7 +17,8 @@ namespace SagoMini
 
         private void Start()
         {
-            prefabToSpawn = AssetBundleManager.Instance.GetPrefabFromAssetBundle(prefabUniqueID);
+            if (AssetBundleManager.Instance)
+                prefabToSpawn = AssetBundleManager.Instance.GetPrefabFromAssetBundle(prefabUniqueID);
 
             if (prefabToSpawn)
                 Instantiate(prefabToSpawn, transform);

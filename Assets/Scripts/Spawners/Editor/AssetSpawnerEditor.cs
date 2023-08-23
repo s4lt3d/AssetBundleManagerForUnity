@@ -36,7 +36,7 @@ namespace SagoMini
 
             if (matchingPrefab)
             {
-                if (GUILayout.Button("Locate in Project View"))
+                if (GUILayout.Button($"Open Inspector for {tempDroppedPrefab.name}"))
                 {
                     Selection.activeObject = matchingPrefab;
                     EditorGUIUtility.PingObject(matchingPrefab);
