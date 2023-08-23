@@ -63,7 +63,17 @@ The project requires that any change to prefabs to be spawned needs an asset bun
 
 This system abstracts away the complexities of working directly with asset bundles and the need to worry about the underlying structure of the project. It is designed to work with the familiar Unity workflow making using asset bundles easy and streamlined. This system could be expanded to provide additional functionality such as loading from remote bundles or simulating asset bundles in the editor. 
 
-#### Additional Features for Future Work
+### Assumptions 
+
+Several assumptions made during the design of this system should be discussed. 
+- The project only needs to demonstrate loading from asset bundles and loading only from local bundles is acceptable. Future flexibility was put in place to accomodate loading bundles from other sources. 
+- The designer has little knowledge of the underlying asset bundles and only needs to interact with it at a minimum. Effort was put into the UX/UI experience for the designer to ensure that they have a seemless experience within Unity without needing to learn a new way of working. Any assumption of knowledge to make the system work was put into checks to ensure the prefabs were correctly setup to work.
+- Assuming the designers limited knowledge of bundles, not only do path changes need to be accounted for, but any change such as naming, path, or asset bundle changes. 
+- Building asset bundles each time a change is made is tedious. For this project the assumption was that workflow is acceptable as this is a demonstration of an asset loading system. Future flexibility is in place to simulate asset bundles to prevent rebuilding each time a change is made. 
+- The prefab unique id component solves an issue with Unity's own guid  for game objects. This serializes a random guid and is less likely to change though unity upgrades or other issues with guids changing. The chance of collision is very low but a system could be put in place to check if build issues are encountered. With further investigation and understanding of Unity's guid system we may be able to forgo this custom component on each prefab. 
+- Performance of loading asset bundles should have minimal impact is the bundles are created in a thoughtful process. Issues may arise if large numbers of assets are packed into only one bundle. In that case an alternative method of loading asset bundles could be employed which does not load the entire bundle but uses a lookup to load individual assets (with dependencies). 
+
+### Additional Features for Future Work
 - Asset Bundle Browser
     - Allow engineers or designers to easily see and configure which objects are bundled together. Currently each prefab needs to be viewed and configured seperately. 
 - Simulate Asset Bundles
