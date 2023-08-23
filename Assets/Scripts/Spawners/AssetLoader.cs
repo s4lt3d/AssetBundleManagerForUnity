@@ -2,12 +2,16 @@ using UnityEngine;
 
 namespace SagoMini
 {
-    public class AssetSpawner : MonoBehaviour
+    /// <summary>
+    /// Spawns prefab on start using asset manager.
+    /// Uses PrefabUniqueIdentifier to load assets. 
+    /// </summary>
+    public class AssetLoader : MonoBehaviour
     {
         [HideInInspector, SerializeField] 
         protected string prefabUniqueID = "";
 
-        protected GameObject prefabToSpawn;
+        protected GameObject spawnedPrefab;
 
         public string PrefabUniqueID
         {
@@ -18,10 +22,10 @@ namespace SagoMini
         private void Start()
         {
             if (AssetBundleManager.Instance)
-                prefabToSpawn = AssetBundleManager.Instance.GetPrefabFromAssetBundle(prefabUniqueID);
+                spawnedPrefab = AssetBundleManager.Instance.LoadPrefab(prefabUniqueID);
 
-            if (prefabToSpawn)
-                Instantiate(prefabToSpawn, transform);
+            if (spawnedPrefab)
+                Instantiate(spawnedPrefab, transform);
         }
 
         private void OnDestroy()

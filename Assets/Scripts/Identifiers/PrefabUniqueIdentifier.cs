@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace SagoMini
 {
+    /// <summary>
+    /// Creates a unique id to identify game objects.
+    /// Benefits over Unity GUIDs:
+    ///     Serialized and not recomputed based on environment, unity version, library issues, or merge conflicts. 
+    /// </summary>
     [DisallowMultipleComponent]
     public class PrefabUniqueIdentifier : MonoBehaviour
     {

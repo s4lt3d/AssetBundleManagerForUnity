@@ -3,6 +3,10 @@ using System.IO;
 
 namespace SagoMini
 {
+    /// <summary>
+    /// Local asset bundle manager. Loads and unloads asset bundles from file.
+    /// Loads assets using PrefabUniqueID.
+    /// </summary>
     public class LocalAssetBundleManager : AssetBundleManager
     {
         protected override void LoadManifest()
@@ -18,7 +22,7 @@ namespace SagoMini
             }
         }
 
-        public override void LoadAssetBundle(string path)
+        protected override void LoadAssetBundle(string path)
         {
             if (!loadedAssetBundles.ContainsKey(path))
             {
@@ -39,7 +43,7 @@ namespace SagoMini
             }
         }
 
-        public override void UnloadAssetBundle(string path)
+        protected override void UnloadAssetBundle(string path)
         {
             if (loadedAssetBundles.ContainsKey(path))
             {
@@ -53,7 +57,12 @@ namespace SagoMini
             }
         }
 
-        public override GameObject GetPrefabFromAssetBundle(string id)
+        /// <summary>
+        /// Loads prefab from asset bundle using PrefabUniqueID
+        /// </summary>
+        /// <param name="id">PrefabUniqueIdentifier</param>
+        /// <returns>Prefab or null</returns>
+        public override GameObject LoadPrefab(string id)
         {
             if (assetBundleManifest.TryGetValue(id, out var path))
             {

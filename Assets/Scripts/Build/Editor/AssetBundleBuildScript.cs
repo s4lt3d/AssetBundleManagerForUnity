@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace SagoMini
 {
+    /// <summary>
+    /// Asset Bundle Build Script
+    /// Builds Asset Bundles
+    /// Builds a manifest PrefabUniqueID to Path for loading asset bundles. 
+    /// </summary>
     public class AssetBundleBuildScript
     {
         static BuildConfiguration config;

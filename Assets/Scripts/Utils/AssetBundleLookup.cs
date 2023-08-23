@@ -3,12 +3,18 @@ using System.Collections.Generic;
 
 namespace SagoMini
 {
+    /// <summary>
+    /// Helper class for unity json serializer
+    /// </summary>
     [Serializable]
     public class AssetBundleLookupSerializableHelper
     {
         public List<AssetBundleLookup> items;
     }
 
+    /// <summary>
+    /// Manifest entries for precomputed asset bundle lookups. 
+    /// </summary>
     [Serializable]
     public class AssetBundleLookup
     {

@@ -4,8 +4,14 @@ using UnityEditor;
 
 namespace SagoMini
 {
-    [CustomEditor(typeof(AssetSpawner))]
-    public class AssetSpawnerEditor : Editor
+    /// <summary>
+    /// Inspector for AssetLoader.
+    /// Allows designer to drag and drop prefab to spawn as if it were a normal prefab. No major change to unity flow. 
+    /// Provides warnings of misconfiguration and prompts for automatic fix for misconfiguration.
+    /// Displays information about asset bundle and warns for missing asset bundle configuration.  
+    /// </summary>
+    [CustomEditor(typeof(AssetLoader), true)]
+    public class AssetLoaderEditor : Editor
     {
         private string cachedID = "";
         private GameObject cachedGameObject;
@@ -13,22 +19,22 @@ namespace SagoMini
 
         public override void OnInspectorGUI()
         {
-            AssetSpawner assetSpawner = (AssetSpawner)target;
+            AssetLoader assetLoader = (AssetLoader)target;
 
             DrawDefaultInspector();
 
             if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Delete &&
                 GUI.GetNameOfFocusedControl() == "Prefab")
             {
-                assetSpawner.PrefabUniqueID = "";
+                assetLoader.PrefabUniqueID = "";
                 Event.current.Use();
                 cachedID = "";
                 cachedGameObject = null;
-                EditorUtility.SetDirty(assetSpawner);
+                EditorUtility.SetDirty(assetLoader);
                 return;
             }
 
-            GameObject matchingPrefab = FindPrefabByUniqueID(assetSpawner.PrefabUniqueID);
+            GameObject matchingPrefab = FindPrefabByUniqueID(assetLoader.PrefabUniqueID);
 
             GUI.SetNextControlName("Prefab");
             GameObject tempDroppedPrefab =
@@ -59,7 +65,6 @@ namespace SagoMini
                 }
             }
 
-
             if (tempDroppedPrefab && IsPrefab(tempDroppedPrefab))
             {
                 PrefabUniqueIdentifier identifier = tempDroppedPrefab.GetComponent<PrefabUniqueIdentifier>();
@@ -82,11 +87,11 @@ namespace SagoMini
                 }
                 else
                 {
-                    assetSpawner.PrefabUniqueID = identifier.UniqueID;
+                    assetLoader.PrefabUniqueID = identifier.UniqueID;
 
                     if (shouldSerialize)
                     {
-                        EditorUtility.SetDirty(assetSpawner);
+                        EditorUtility.SetDirty(assetLoader);
                         shouldSerialize = false;
                     }
                 }

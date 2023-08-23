@@ -1,14 +1,24 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 namespace SagoMini
 {
+    /// <summary>
+    /// Abstract base class for Asset Bundle Management. Configuration Pattern
+    /// Allows for asset bundle managers to be loaded. 
+    /// Use cases: managers can provide local, remote, or simulated asset bundles, or change to an entirely new system
+    ///            without needing to change classes which use the asset bundle manager. 
+    /// </summary>
     public abstract class AssetBundleManager : MonoBehaviour
     {
         protected static AssetBundleManager instance;
+        protected static bool destroy = false;
+        
         protected static BuildConfiguration config;
         protected string assetBundlePath = "";
+        
         
         // Map unique IDs to the asset's asset bundle to load. 
         protected readonly Dictionary<string, string> assetBundleManifest = new();
@@ -28,15 +38,16 @@ namespace SagoMini
                         Debug.LogError("No valid AssetBundleManagerConfig found!");
                         return null;
                     }
-
-                    instance = Instantiate(config.ManagerPrefab);
+                    
+                    if(!destroy)
+                        instance = Instantiate(config.ManagerPrefab);
                 }
                 
                 return instance;
             }
         }
 
-        protected static BuildConfiguration LoadConfig()
+        static BuildConfiguration LoadConfig()
         {
             if(config == null)
                 return Resources.Load<BuildConfiguration>(Path.Combine("Settings", "LocalConfig"));
@@ -60,10 +71,15 @@ namespace SagoMini
             LoadManifest();
         }
 
+        protected void OnApplicationQuit()
+        {
+            destroy = true;
+        }
+
         protected abstract void LoadManifest();
-        public abstract void LoadAssetBundle(string path);
-        public abstract void UnloadAssetBundle(string path);
-        public abstract GameObject GetPrefabFromAssetBundle(string id);
+        protected abstract void LoadAssetBundle(string path);
+        protected abstract void UnloadAssetBundle(string path);
+        public abstract GameObject LoadPrefab(string id);
         public abstract void UnloadPrefab(string id);
     }
 }
