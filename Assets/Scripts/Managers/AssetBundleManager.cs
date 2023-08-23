@@ -14,7 +14,7 @@ namespace SagoMini
     public abstract class AssetBundleManager : MonoBehaviour
     {
         protected static AssetBundleManager instance;
-        protected static bool destroy = false;
+        protected static bool destroyed = false;
         
         protected static BuildConfiguration config;
         protected string assetBundlePath = "";
@@ -29,7 +29,7 @@ namespace SagoMini
         {
             get
             {
-                if (instance == null)
+                if (instance == null && !destroyed)
                 {
                     config = LoadConfig();
 
@@ -39,8 +39,7 @@ namespace SagoMini
                         return null;
                     }
                     
-                    if(!destroy)
-                        instance = Instantiate(config.ManagerPrefab);
+                    instance = Instantiate(config.ManagerPrefab);
                 }
                 
                 return instance;
@@ -73,7 +72,7 @@ namespace SagoMini
 
         protected void OnApplicationQuit()
         {
-            destroy = true;
+            destroyed = true;
         }
 
         protected abstract void LoadManifest();
