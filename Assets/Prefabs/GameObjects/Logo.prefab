@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3892ff988d6ef49429eb72e53a658dbd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a85d09e5eb2b4a54fabcdad20478d1d8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID:
-    guid: 
+    guid: 342dfe034c319bf41a1acf8666f94506
 --- !u!114 &7469524782744200636
 MonoBehaviour:
   m_ObjectHideFlags: 0
