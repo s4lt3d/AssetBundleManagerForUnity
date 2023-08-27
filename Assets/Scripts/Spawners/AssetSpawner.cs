@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SagoMini
+namespace SaltedGameKit
 {
     /// <summary>
     /// Spawns prefab on start using asset manager.

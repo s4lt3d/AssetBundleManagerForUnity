@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace SagoMini
+namespace SaltedGameKit
 {
     /// <summary>
     /// Inspector for AssetSpawner.

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SagoMini
+namespace SaltedGameKit
 {
     /// <summary>
     /// Creates a unique id to identify game objects.

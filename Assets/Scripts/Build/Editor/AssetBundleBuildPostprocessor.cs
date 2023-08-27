@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 
-namespace SagoMini
+namespace SaltedGameKit
 {
     /// <summary>
     /// Not for production. Used for testing updating asset bundles without rebuilding the project. Windows only.

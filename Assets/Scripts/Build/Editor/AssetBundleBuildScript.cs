@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace SagoMini
+namespace SaltedGameKit
 {
     /// <summary>
     /// Asset Bundle Build Script

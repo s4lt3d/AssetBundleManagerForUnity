@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SagoMini
+namespace SaltedGameKit
 {
     [CreateAssetMenu(menuName = "Build Configuration")]
     public class BuildConfiguration : ScriptableObject

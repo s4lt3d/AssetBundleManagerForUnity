@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SagoMini
+namespace SaltedGameKit
 {
     /// <summary>
     /// Helper class for unity json serializer
