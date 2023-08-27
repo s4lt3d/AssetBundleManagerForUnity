@@ -3,14 +3,13 @@ using System.Collections.Generic;
 
 namespace SaltedGameKit
 {
-    
     public class AssetLoader : MonoBehaviour
     {
         [SerializeField]
         protected List<GUIDReference> UnityGUIDs = new List<GUIDReference>();
         
         protected List<GameObject> spawnedPrefabs = new List<GameObject>();
-
+        
         public List<GUIDReference> PrefabUniqueIDs
         {
             get => UnityGUIDs;
