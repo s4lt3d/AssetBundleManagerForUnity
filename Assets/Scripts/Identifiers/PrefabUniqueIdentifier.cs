@@ -1,4 +1,7 @@
 ﻿using System;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace SaltedGameKit
@@ -16,7 +19,6 @@ namespace SaltedGameKit
 
         public string UniqueID => uniqueID;
 
-
 #if UNITY_EDITOR
         private void OnValidate()
         {
@@ -26,8 +28,10 @@ namespace SaltedGameKit
         public void GenerateUniqueID()
         {
             if (string.IsNullOrEmpty(UniqueID))
-                // Set uniqueID to a new GUID.
-                uniqueID = Guid.NewGuid().ToString();
+            {
+                string assetPath = AssetDatabase.GetAssetPath(gameObject);
+                uniqueID = AssetDatabase.AssetPathToGUID(assetPath);
+            }
         }
 #endif
     }

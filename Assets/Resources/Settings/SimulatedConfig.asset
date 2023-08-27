@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cbced895af509345b62aa89b1002711, type: 3}
+  m_Name: SimulatedConfig
+  m_EditorClassIdentifier: 
+  assetBundleDirectoryPath: AssetBundles
+  manifestFileName: AssetManifest.json
+  ManagerPrefab: {fileID: -4829817707175745386, guid: 0936cab1b9d23e34c811a99fa72ff360, type: 3}

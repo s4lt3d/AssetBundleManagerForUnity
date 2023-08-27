@@ -11,7 +11,7 @@ namespace SaltedGameKit
     {
         protected override void LoadManifest()
         {
-            var jsonPath = Path.Combine(Application.dataPath, config.assetBundleDirectoryPath, config.manifestFileName);
+            var jsonPath = Path.Combine(Application.dataPath, Config.assetBundleDirectoryPath, Config.manifestFileName);
             if (File.Exists(jsonPath))
             {
                 var jsonData = File.ReadAllText(jsonPath);

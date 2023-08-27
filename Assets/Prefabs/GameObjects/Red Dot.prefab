@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2277323674347363239}
   - component: {fileID: 5278096535221705290}
-  - component: {fileID: -5444727984853680245}
+  - component: {fileID: 5205493196093514687}
   m_Layer: 0
   m_Name: Red Dot
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-5444727984853680245
+--- !u!114 &5205493196093514687
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,4 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6182bc4c2ab7498dbbf086899563f942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueID: f6acd2e9-99ea-434a-9f69-dacaf873b8ce
+  uniqueID: 

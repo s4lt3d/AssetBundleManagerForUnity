@@ -10,13 +10,12 @@ namespace SaltedGameKit
     /// Use cases: managers can provide local, remote, or simulated asset bundles, or change to an entirely new system
     ///            without needing to change classes which use the asset bundle manager. 
     /// </summary>
-    public abstract class AssetBundleManager : MonoBehaviour
+    public class AssetBundleManager : MonoBehaviour
     {
         protected static AssetBundleManager instance;
         protected static bool destroyed;
 
-        protected static BuildConfiguration config;
-
+        protected static BuildConfiguration Config;
 
         // Map unique IDs to the asset's asset bundle to load. 
         protected readonly Dictionary<string, string> assetBundleManifest = new();
@@ -24,21 +23,31 @@ namespace SaltedGameKit
         protected readonly Dictionary<string, AssetBundle> loadedAssetBundles = new();
         protected string assetBundlePath = "";
 
+        
+        #if SIMULATEDASSETS
+        protected const string CONFIG = "SimulatedConfig";
+        #elif LOCALASSETS
+        protected const string CONFIG = "LocalConfig";
+        #else
+        protected const string CONFIG = "LocalConfig";
+        #endif
+        
+        
         public static AssetBundleManager Instance
         {
             get
             {
                 if (instance == null && !destroyed)
                 {
-                    config = LoadConfig();
+                    Config = LoadConfig();
 
-                    if (config == null || config.ManagerPrefab == null)
+                    if (Config == null || Config.ManagerPrefab == null)
                     {
                         Debug.LogError("No valid AssetBundleManagerConfig found!");
                         return null;
                     }
 
-                    instance = Instantiate(config.ManagerPrefab);
+                    instance = Instantiate(Config.ManagerPrefab);
                 }
 
                 return instance;
@@ -56,8 +65,8 @@ namespace SaltedGameKit
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            config = LoadConfig();
-            assetBundlePath = Path.Combine(Application.dataPath, config.assetBundleDirectoryPath);
+            Config = LoadConfig();
+            assetBundlePath = Path.Combine(Application.dataPath, Config.assetBundleDirectoryPath);
             LoadManifest();
         }
 
@@ -68,16 +77,38 @@ namespace SaltedGameKit
 
         private static BuildConfiguration LoadConfig()
         {
-            if (config == null)
-                return Resources.Load<BuildConfiguration>(Path.Combine("Settings", "LocalConfig"));
+            if (Config == null)
+            {
+                return Resources.Load<BuildConfiguration>(Path.Combine("Settings", CONFIG));
+            }
 
-            return config;
+            return Config;
         }
 
-        protected abstract void LoadManifest();
-        protected abstract void LoadAssetBundle(string path);
-        protected abstract void UnloadAssetBundle(string path);
-        public abstract GameObject LoadPrefab(string id);
-        public abstract void UnloadPrefab(string id);
+        protected virtual void LoadManifest()
+        {
+            // empty
+        }
+
+        protected virtual void LoadAssetBundle(string path)
+        {
+            // empty
+        }
+
+        protected virtual void UnloadAssetBundle(string path)
+        {
+            // empty
+        }
+
+        public virtual GameObject LoadPrefab(string id)
+        {
+            // empty
+            return null;
+        }
+
+        public virtual void UnloadPrefab(string id)
+        {
+            // empty
+        }
     }
 }
