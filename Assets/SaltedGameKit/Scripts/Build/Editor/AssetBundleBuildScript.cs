@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+
 using System.IO;
 using System.Collections.Generic;
 using UnityEditor;
@@ -77,12 +77,15 @@ namespace SaltedGameKit
                     if (string.IsNullOrEmpty(assetBundleName))
                     {
                         Debug.LogWarning(
-                            $"Prefab '{go.name}' with UniqueID '{identifier.UniqueID}' is not assigned to any asset bundle!");
+                            $"Prefab '{go.name}' with UniqueID '{identifier.Guid}' is not assigned to any asset bundle!");
                     }
                     else
                     {
-                        prefabToAssetBundleMap.Add(new AssetBundleLookup(identifier.UniqueID, assetBundleName, go.name,
-                            prefabGuid, path));
+                        if(string.IsNullOrEmpty(identifier.Guid))
+                            Debug.LogWarning($"Invalid Guid for object {go.name}");
+                        
+                        prefabToAssetBundleMap.Add(new AssetBundleLookup(assetBundleName, go.name,
+                            identifier.Guid, path));
                     }
                 }
             }
@@ -97,4 +100,3 @@ namespace SaltedGameKit
         }
     }
 }
-#endif

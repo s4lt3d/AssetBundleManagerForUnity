@@ -18,15 +18,13 @@ namespace SaltedGameKit
     [Serializable]
     public class AssetBundleLookup
     {
-        public string uniqueid;
         public string assetbundle;
         public string assetname;
         public string guid;
         public string path;
 
-        public AssetBundleLookup(string id, string bundle, string name, string unityguid, string datapath)
+        public AssetBundleLookup(string bundle, string name, string unityguid, string datapath)
         {
-            uniqueid = id;
             assetbundle = bundle;
             assetname = name;
             guid = unityguid;

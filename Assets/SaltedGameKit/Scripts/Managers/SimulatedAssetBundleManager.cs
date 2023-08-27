@@ -23,7 +23,7 @@ namespace SaltedGameKit
 
                 foreach (var pair in pairs)
                 {
-                    assetBundleManifest[pair.uniqueid] = pair.path;
+                    assetBundleManifest[pair.guid] = pair.path;
                 }
             }
         }

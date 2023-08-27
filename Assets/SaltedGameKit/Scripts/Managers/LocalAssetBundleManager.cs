@@ -18,7 +18,7 @@ namespace SaltedGameKit
                 var pairs = JsonUtility.FromJson<AssetBundleLookupSerializableHelper>(jsonData)
                     .items;
 
-                foreach (var pair in pairs) assetBundleManifest[pair.uniqueid] = pair.assetbundle;
+                foreach (var pair in pairs) assetBundleManifest[pair.guid] = pair.assetbundle;
             }
         }
 
@@ -72,7 +72,7 @@ namespace SaltedGameKit
                 foreach (var prefab in loadedAssetBundle.LoadAllAssets<GameObject>())
                 {
                     var identifier = prefab.GetComponent<PrefabUniqueIdentifier>();
-                    if (identifier != null && identifier.UniqueID == id)
+                    if (identifier != null && identifier.Guid == id)
                         return prefab;
                 }
             }
