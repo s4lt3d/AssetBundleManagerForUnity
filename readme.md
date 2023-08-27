@@ -1,4 +1,4 @@
-# Sago Mini Tech Test
+# Asset Bundle Manager
 
 This demo project demonstrates an asset loading system which has the following features.
 
@@ -63,7 +63,7 @@ The scene `SpawnTestScene` is provided to demonstrate usage of the asset managem
 
 ## Discussion
 
-This project mets the requirements of the Sago Mini Tech Test by providing drag and drop functionality and automatic loading of assets from asset bundles. It allows the designer to change prefab locations, rename the prefab, and change the asset bundles without breaking references. The project can be expanded in several areas. 
+This project allows the designer to change prefab locations, rename the prefab, and change the asset bundles without breaking references. The project can be expanded in several areas. 
 
 The loading of assets without breaking references is accomplished by the use of a prefab unique id component. The AssetSpawn class and the AssetBundleManager use this id to load the prefab regardless of path, name change, or bundle change. This serves to solve a previous issue using Unity's own guids in the past. Further investigation may allow the project to forgo the prefab unique id component and rely on the guid Unity generates. However, Unity's guid isn't 100% guarenteed and has caused issues in the past. 
 
