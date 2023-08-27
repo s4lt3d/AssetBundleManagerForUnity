@@ -127,5 +127,5 @@ namespace SaltedGameKit
             return !string.IsNullOrEmpty(AssetDatabase.GetAssetPath(go));
         }
     }
-#endif
 }
+#endif

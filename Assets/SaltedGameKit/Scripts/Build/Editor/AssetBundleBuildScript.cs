@@ -1,6 +1,7 @@
-using UnityEditor;
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using System.IO;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace SaltedGameKit
@@ -96,3 +97,4 @@ namespace SaltedGameKit
         }
     }
 }
+#endif

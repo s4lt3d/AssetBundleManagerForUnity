@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SaltedGameKit
 {
     /// <summary>
-    /// Abstract base class for Asset Bundle Management. Configuration Pattern
+    /// Base class for Asset Bundle Management. Configuration Pattern
     /// Allows for asset bundle managers to be loaded. 
     /// Use cases: managers can provide local, remote, or simulated asset bundles, or change to an entirely new system
     ///            without needing to change classes which use the asset bundle manager. 

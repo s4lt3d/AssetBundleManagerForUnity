@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 
 namespace SaltedGameKit
 {
@@ -62,3 +63,4 @@ namespace SaltedGameKit
         }
     }
 }
+#endif
