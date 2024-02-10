@@ -1,6 +1,6 @@
-# Asset Bundle Manager
+# Asset Bundle Manager for Unity
 
-This demo project demonstrates an asset loading system which has the following features.
+This demo project demonstrates an asset loading system which has the following features and is intended as a demo. 
 
 * Enables designers to drag/drop a prefab from the project view into the spawner component to instantiate a GameObject at runtime.
 * Designers can move, rename prefabs, or modify asset bundles without impacting functionality.
@@ -45,8 +45,7 @@ The scene `SpawnTestScene` is provided to demonstrate usage of the asset managem
 
 6. Run Scene
     - The prefab should instantiate using the AssetSpawner's transform as a child of the AssetSpawner.
-
-        ![Game](readme_assets/game.gif)
+    - A graphic will bounce around the screen showing that it has loaded the asset correctly.
 
 #### Build Setup (Already done for you)
 
